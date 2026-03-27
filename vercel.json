@@ -1,14 +1,14 @@
 {
   "rewrites": [
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [{ "type": "host", "value": "steadyeye.bazilier.com" }],
-      "destination": "/steadyeye/:path*"
+      "destination": "/steadyeye/$1"
     },
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [{ "type": "host", "value": "doseboard.bazilier.com" }],
-      "destination": "/doseboard/:path*"
+      "destination": "/doseboard/$1"
     }
   ]
 }
