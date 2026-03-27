@@ -1,14 +1,1 @@
-{
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "has": [{ "type": "host", "value": "steadyeye.bazilier.com" }],
-      "destination": "/steadyeye/$1"
-    },
-    {
-      "source": "/(.*)",
-      "has": [{ "type": "host", "value": "doseboard.bazilier.com" }],
-      "destination": "/doseboard/$1"
-    }
-  ]
-}
+{}
