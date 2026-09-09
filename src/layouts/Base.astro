@@ -7,6 +7,8 @@ interface Props {
   appId?: string;
   gaId?: string;
   faviconPath?: string;
+  icon192Path?: string;
+  appleTouchIconPath?: string;
 }
 
 const {
@@ -17,6 +19,8 @@ const {
   appId,
   gaId,
   faviconPath = '/img/steadyeye/favicon.png',
+  icon192Path = '/img/steadyeye/favicon-192.png',
+  appleTouchIconPath = '/img/steadyeye/apple-touch-icon.png',
 } = Astro.props;
 
 // Placeholder IDs must never emit a live gtag config.
@@ -44,7 +48,9 @@ const hasGa = Boolean(gaId && !gaId.startsWith('G-XXXX'));
   <meta name="twitter:description" content={description}>
   {ogImage && <meta name="twitter:image" content={ogImage}>}
 
-  <link rel="icon" type="image/png" href={faviconPath}>
+  <link rel="icon" type="image/png" sizes="32x32" href={faviconPath}>
+  <link rel="icon" type="image/png" sizes="192x192" href={icon192Path}>
+  <link rel="apple-touch-icon" sizes="180x180" href={appleTouchIconPath}>
   {appId && <meta name="apple-itunes-app" content={`app-id=${appId}`}>}
 
   {hasGa && (
