@@ -6,9 +6,21 @@ interface Props {
   ogImage?: string;
   appId?: string;
   gaId?: string;
+  faviconPath?: string;
 }
 
-const { title, description, canonical, ogImage, appId, gaId } = Astro.props;
+const {
+  title,
+  description,
+  canonical,
+  ogImage,
+  appId,
+  gaId,
+  faviconPath = '/img/steadyeye/favicon.png',
+} = Astro.props;
+
+// Placeholder IDs must never emit a live gtag config.
+const hasGa = Boolean(gaId && !gaId.startsWith('G-XXXX'));
 ---
 
 <!DOCTYPE html>
@@ -32,10 +44,10 @@ const { title, description, canonical, ogImage, appId, gaId } = Astro.props;
   <meta name="twitter:description" content={description}>
   {ogImage && <meta name="twitter:image" content={ogImage}>}
 
-  <link rel="icon" type="image/png" href="/img/steadyeye/favicon.png">
+  <link rel="icon" type="image/png" href={faviconPath}>
   {appId && <meta name="apple-itunes-app" content={`app-id=${appId}`}>}
 
-  {gaId && (
+  {hasGa && (
     <Fragment>
       <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
       <script define:vars={{ gaId }}>
