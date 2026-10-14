@@ -51,7 +51,7 @@ const gallery = [
   <header class="se-hero">
     <div class="se-wrap se-hero-grid">
       <div class="se-hero-copy">
-        <span class="se-chip"><span class="se-eye-dot" aria-hidden="true"></span> AI eye-contact tracking</span>
+        <span class="se-chip"><svg class="se-eye" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.4"/></svg> AI eye-contact tracking</span>
         <h1 class="se-h1">Teleprompter<br>for real<br><span class="se-accent">eye contact.</span></h1>
         <p class="se-lead">SteadyEye shows your script one word at a time, right under the camera lens. Your eyes stay locked. Your audience sees confidence, not reading.</p>
         <div class="se-ctas">
@@ -68,18 +68,30 @@ const gallery = [
     </div>
   </header>
 
-  <!-- LIVE PROMPTER -->
+  <!-- LIVE PROMPTER: both reading modes, on the grey camera backdrop of the App Store screenshots -->
   <section class="se-demo" aria-label="How the prompter reads">
     <div class="se-wrap">
-      <div class="se-pill" aria-hidden="true">
-        <div class="se-pill-top">
-          <span class="se-eye-dot"></span>
-          <span class="se-rec"></span>
-          <span class="se-chev"></span>
-        </div>
-        <div class="se-pill-word"><span class="se-word">SteadyEye</span></div>
+      <div class="se-modes" aria-hidden="true">
+        <figure class="se-mode">
+          <figcaption>1 line</figcaption>
+          <div class="se-stage">
+            <div class="se-pill">
+              <div class="se-pill-top"><svg class="se-eye" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.4"/></svg><span class="se-rec"></span><span class="se-chev"></span></div>
+              <div class="se-lines" data-lines="1"></div>
+            </div>
+          </div>
+        </figure>
+        <figure class="se-mode">
+          <figcaption>3 lines</figcaption>
+          <div class="se-stage">
+            <div class="se-pill">
+              <div class="se-pill-top"><svg class="se-eye" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.4"/></svg><span class="se-rec"></span><span class="se-chev"></span></div>
+              <div class="se-lines" data-lines="3"></div>
+            </div>
+          </div>
+        </figure>
       </div>
-      <p class="se-demo-caption">One word at a time. <span class="se-muted">Right where the camera is.</span></p>
+      <p class="se-demo-caption">One line or three. <span class="se-muted">Always right under the camera.</span></p>
     </div>
   </section>
 
@@ -171,30 +183,43 @@ const gallery = [
 </div>
 
 <script>
-  // The prompter pill: one word at a time, with the focus letter (about a
-  // third into the word, where the eye lands) in the accent — as in the app.
-  const words = ['Your', 'eyes', 'stay', 'right', 'under', 'the', 'lens.', 'One', 'word', 'at', 'a', 'time.', 'SteadyEye'];
-  const el = document.querySelector<HTMLElement>('.se-word');
+  // Both prompter pills step through the same words. As in the app, each
+  // word's focus letter (ORPAlignment.swift: orpIndex) sits in the middle
+  // column, straight under the camera; in three-line mode the previous and
+  // next words are dimmed, their focus letters in the same column.
+  const words = ['SteadyEye', 'keeps', 'your', 'eyes', 'right', 'under', 'the', 'lens.', 'One', 'word', 'at', 'a', 'time.', 'No', 'more', 'wandering', 'eyes.'];
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function render(word: string) {
-    if (!el) return;
-    const letters = word.replace(/\W+$/, '').length;
-    const focus = Math.max(0, Math.min(word.length - 1, Math.round((letters - 1) * 0.35)));
-    el.replaceChildren(
-      document.createTextNode(word.slice(0, focus)),
-      Object.assign(document.createElement('span'), { className: 'se-focus', textContent: word[focus] }),
-      document.createTextNode(word.slice(focus + 1)),
-    );
+  function orpIndex(word: string): number {
+    const lead = word.length - word.replace(/^\p{P}+/u, '').length;
+    const len = word.replace(/^\p{P}+|\p{P}+$/gu, '').length;
+    const idx = len <= 1 ? 0 : len <= 5 ? 1 : len <= 9 ? 2 : len <= 13 ? 3 : 4;
+    return Math.min(lead + idx, Math.max(0, word.length - 1));
   }
 
-  if (el) {
-    render('SteadyEye');
-    if (!reduce) {
-      let i = 0;
-      setInterval(() => { render(words[i % words.length]); i += 1; }, 420);
+  function line(word: string, dim: boolean): HTMLElement {
+    const row = document.createElement('div');
+    row.className = dim ? 'se-line se-line-dim' : 'se-line';
+    const i = orpIndex(word);
+    for (const [cls, text] of [['se-before', word.slice(0, i)], ['se-focus', word[i] ?? ''], ['se-after', word.slice(i + 1)]]) {
+      const span = document.createElement('span');
+      span.className = cls;
+      span.textContent = text;
+      row.append(span);
     }
+    return row;
   }
+
+  const one = document.querySelector<HTMLElement>('.se-lines[data-lines="1"]');
+  const three = document.querySelector<HTMLElement>('.se-lines[data-lines="3"]');
+  let n = 0;
+  function show() {
+    const at = (k: number) => words[(k + words.length) % words.length];
+    one?.replaceChildren(line(at(n), false));
+    three?.replaceChildren(line(at(n - 1), true), line(at(n), false), line(at(n + 1), true));
+  }
+  show();
+  if (!reduce) setInterval(() => { n = (n + 1) % words.length; show(); }, 480);
 
   const nav = document.querySelector('.se-nav');
   window.addEventListener('scroll', () => nav?.classList.toggle('se-nav-scrolled', window.scrollY > 24), { passive: true });
