@@ -70,9 +70,11 @@ a { color: inherit; }
 /* ── Live prompter: 1-line and 3-line pills on the grey camera backdrop ── */
 .se-demo { padding: 40px 0 100px; text-align: center; }
 .se-modes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; text-align: left; }
+/* Both cards share the taller card's height, pills centred in each. */
+.se-mode { display: flex; flex-direction: column; }
 .se-mode figcaption { font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; margin: 0 0 12px 4px; }
 .se-stage {
-  border-radius: 28px; padding: 28px 22px; min-height: 250px;
+  flex: 1; border-radius: 28px; padding: 28px 22px; min-height: 250px;
   display: flex; align-items: center; justify-content: center;
   background: linear-gradient(180deg, #d3d3d8 0%, #c2c2c7 100%);
 }
