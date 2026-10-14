@@ -1,189 +1,205 @@
 ---
-// Order matters: steadyeye.css overrides .btn* rules from global.css.
-import '../styles/global.css';
+// SteadyEye landing. Same visual language as the app's paywall and
+// onboarding and the App Store screenshots: near-black ground, heavy tight
+// headlines ending in the accent, the monospaced prompter pill with its
+// accented focus letter, accent-framed phones, tinted icon tiles.
+// Self-contained: does not import global.css (shared with other sites).
 import '../styles/steadyeye.css';
+
+const appStore = 'https://apps.apple.com/app/steadyeye-teleprompter/id6761066976';
+
+const features = [
+  { icon: 'word', title: 'One word, under the lens.', body: 'Your script appears right where the camera is. Prefer more context? Switch to three lines.' },
+  { icon: 'eye', title: 'Eye-contact score.', body: 'After every take, see how much of it you held the camera’s gaze.' },
+  { icon: 'wave', title: 'Studio sound.', body: 'Your voice without background noise or echo. One tap after recording.', tag: 'New' },
+  { icon: 'sparkles', title: 'AI scripts.', body: 'Paste messy notes or just a topic. Get a script that’s ready to read aloud.' },
+  { icon: 'video', title: '4K, stabilized.', body: 'Sharp and steady front-camera video, at the frame rate you pick.' },
+  { icon: 'mic', title: 'Any microphone.', body: 'AirPods, Bluetooth, wired or DJI. Plug in and record.' },
+  { icon: 'globe', title: 'Any language.', body: 'Spanish to Russian, Arabic to Japanese — with proper right-to-left and CJK support.' },
+  { icon: 'drop', title: 'No watermark.', body: 'With a subscription, post your takes exactly as they are.' },
+];
+
+const gallery = [
+  { src: '01_promise', alt: 'Teleprompter for real eye contact' },
+  { src: '02_eye-contact', alt: 'No more wandering eyes: one line or three lines' },
+  { src: '04_paste-notes', alt: 'Paste your messy notes' },
+  { src: '05_ai-optimize', alt: 'AI makes it ready to read aloud' },
+  { src: '06_scripts', alt: 'Get clean scripts, tap to record' },
+  { src: '03_social-proof', alt: 'Loved by creators' },
+  { src: '07_start-free', alt: 'Start recording for free' },
+];
 ---
 
-<!-- NAV -->
-<nav>
-  <div class="container nav-inner">
-    <a href="/" class="logo"><img src="/img/steadyeye/logo.png" alt="SteadyEye" class="logo-img"> SteadyEye</a>
-    <div class="nav-links">
-      <a href="#how-it-works">How it works</a>
-      <a href="#features">Features</a>
-      <a href="#pricing">Pricing</a>
-      <a href="https://apps.apple.com/app/steadyeye-teleprompter/id6761066976" target="_blank" rel="noopener" class="nav-cta">Download</a>
-    </div>
-  </div>
-</nav>
+<div class="se">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-<!-- HERO -->
-<section class="hero">
-  <div class="container">
-    <div class="hero-badge">Teleprompter for iPhone</div>
-    <h1>One word.<br>Right under the lens.</h1>
-    <p class="hero-sub">The only teleprompter that shows words one at a time — right where the camera is. Your eyes stay locked. Your audience sees eye contact, not a script reader.</p>
-
-    <div class="word-demo">
-      <div class="phone-frame">
-        <div class="dynamic-island"></div>
-        <div class="word-bar"><span class="word-display"></span></div>
-        <div class="phone-label">Your eyes stay here ↑</div>
+  <!-- NAV -->
+  <nav class="se-nav">
+    <div class="se-wrap se-nav-inner">
+      <a href="/" class="se-logo"><img src="/img/steadyeye/logo.png" alt="" width="28" height="28"> SteadyEye</a>
+      <div class="se-nav-links">
+        <a href="#features">Features</a>
+        <a href="#screens">Screens</a>
+        <a href={appStore} target="_blank" rel="noopener" class="se-nav-cta">Download</a>
       </div>
     </div>
+  </nav>
 
-    <div class="hero-ctas">
-      <a href="https://apps.apple.com/app/steadyeye-teleprompter/id6761066976" target="_blank" rel="noopener" class="app-store-badge">
-        <img src="/img/app-store-badge.svg" alt="Download SteadyEye on the App Store" width="120" height="40">
+  <!-- HERO -->
+  <header class="se-hero">
+    <div class="se-wrap se-hero-grid">
+      <div class="se-hero-copy">
+        <span class="se-chip"><span class="se-eye-dot" aria-hidden="true"></span> AI eye-contact tracking</span>
+        <h1 class="se-h1">Teleprompter<br>for real<br><span class="se-accent">eye contact.</span></h1>
+        <p class="se-lead">SteadyEye shows your script one word at a time, right under the camera lens. Your eyes stay locked. Your audience sees confidence, not reading.</p>
+        <div class="se-ctas">
+          <a href={appStore} target="_blank" rel="noopener" class="se-badge">
+            <img src="/img/app-store-badge.svg" alt="Download SteadyEye on the App Store" width="150" height="50">
+          </a>
+          <span class="se-note">Free to start · iPhone</span>
+        </div>
+      </div>
+      <div class="se-hero-visual">
+        <div class="se-glow" aria-hidden="true"></div>
+        <img src="/img/steadyeye/store/hero-phone.jpg" alt="SteadyEye recording screen: the word SteadyEye shown right under the front camera" width="563" height="1100" class="se-hero-phone">
+      </div>
+    </div>
+  </header>
+
+  <!-- LIVE PROMPTER -->
+  <section class="se-demo" aria-label="How the prompter reads">
+    <div class="se-wrap">
+      <div class="se-pill" aria-hidden="true">
+        <div class="se-pill-top">
+          <span class="se-eye-dot"></span>
+          <span class="se-rec"></span>
+          <span class="se-chev"></span>
+        </div>
+        <div class="se-pill-word"><span class="se-word">SteadyEye</span></div>
+      </div>
+      <p class="se-demo-caption">One word at a time. <span class="se-muted">Right where the camera is.</span></p>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="se-section">
+    <div class="se-wrap se-split">
+      <div>
+        <h2 class="se-h2">No more<br>wandering<br><span class="se-accent">eyes.</span></h2>
+        <p class="se-body">Scrolling text makes your eyes scan left to right, and viewers notice instantly. SteadyEye keeps every word in one spot under the lens, so you look at your audience the whole time.</p>
+      </div>
+      <img src="/img/steadyeye/store/eyes.jpg" alt="Eyes reading scrolling text drift sideways; with SteadyEye they look straight into the camera" width="1000" height="901" loading="lazy" class="se-eyes">
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="se-section" id="features">
+    <div class="se-wrap">
+      <h2 class="se-h2">Everything for<br><span class="se-accent">one clean take.</span></h2>
+      <div class="se-features">
+        {features.map((f) => (
+          <div class="se-feature">
+            <span class="se-tile" aria-hidden="true">
+              {f.icon === 'word' && <svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="10" rx="5"/><path d="M8 12h8"/></svg>}
+              {f.icon === 'eye' && <svg viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>}
+              {f.icon === 'wave' && <svg viewBox="0 0 24 24"><path d="M2 10v4M6 6v12M10 3v18M14 8v8M18 5v14M22 10v4"/></svg>}
+              {f.icon === 'sparkles' && <svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>}
+              {f.icon === 'video' && <svg viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="3"/><path d="M16 10l6-3v10l-6-3"/></svg>}
+              {f.icon === 'mic' && <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v5"/></svg>}
+              {f.icon === 'globe' && <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>}
+              {f.icon === 'drop' && <svg viewBox="0 0 24 24"><path d="M12 2.7s7 7.6 7 12.3a7 7 0 0 1-14 0c0-4.7 7-12.3 7-12.3z"/></svg>}
+            </span>
+            <p class="se-feature-text">
+              <strong>{f.title}</strong>
+              {f.tag && <span class="se-tag">{f.tag}</span>}
+              <span class="se-muted"> {f.body}</span>
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="se-section">
+    <div class="se-wrap">
+      <h2 class="se-h2">Notes in.<br><span class="se-accent">Video out.</span></h2>
+      <ol class="se-steps">
+        <li><span class="se-step-num">01</span><h3>Paste your messy notes.</h3><p class="se-muted">Bullet points, numbers, abbreviations. Or just a topic.</p></li>
+        <li><span class="se-step-num">02</span><h3>AI makes it ready to read aloud.</h3><p class="se-muted">Numbers become words, long sentences get shorter, pauses land where you breathe.</p></li>
+        <li><span class="se-step-num">03</span><h3>Tap to record.</h3><p class="se-muted">Read word by word under the lens. One take. Done.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- SCREENS -->
+  <section class="se-section se-screens" id="screens">
+    <div class="se-wrap">
+      <h2 class="se-h2">See it<br><span class="se-accent">in action.</span></h2>
+    </div>
+    <div class="se-gallery" tabindex="0" aria-label="App screenshots">
+      {gallery.map((g) => (
+        <img src={`/img/steadyeye/store/${g.src}.jpg`} alt={g.alt} width="552" height="1200" loading="lazy">
+      ))}
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="se-final">
+    <div class="se-wrap">
+      <h2 class="se-h1">Start recording<br><span class="se-accent">for free.</span></h2>
+      <p class="se-lead">Stop memorizing scripts. Start making eye contact.</p>
+      <a href={appStore} target="_blank" rel="noopener" class="se-badge">
+        <img src="/img/app-store-badge.svg" alt="Download SteadyEye on the App Store" width="150" height="50">
       </a>
-      <a href="#how-it-works" class="btn btn-ghost">See how it works</a>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- PROBLEM -->
-<section class="problem" id="how-it-works">
-  <div class="container">
-    <div class="section-label">The problem</div>
-    <h2>Every teleprompter makes you <em>look</em> like you're reading.</h2>
-    <p class="section-desc">Scrolling text forces your eyes to scan left-to-right. Viewers notice instantly — it looks robotic, rehearsed, untrustworthy. Memorizing scripts burns hours and leads to dozens of retakes.</p>
-
-    <div class="comparison">
-      <div class="comparison-card bad">
-        <div class="comparison-header"><span class="comparison-icon">✕</span> Scrolling teleprompter</div>
-        <div class="comparison-visual"><div class="eye-movement scanning"><div class="eye-dot"></div></div></div>
-        <p>Eyes scan across lines. Viewers see constant movement.</p>
-      </div>
-      <div class="comparison-card good">
-        <div class="comparison-header"><span class="comparison-icon">✓</span> SteadyEye</div>
-        <div class="comparison-visual"><div class="eye-movement steady"><div class="eye-dot"></div></div></div>
-        <p>Eyes stay in one spot. Looks like natural eye contact.</p>
+  <!-- FOOTER -->
+  <footer class="se-footer">
+    <div class="se-wrap se-footer-inner">
+      <span class="se-logo"><img src="/img/steadyeye/logo.png" alt="" width="24" height="24"> SteadyEye</span>
+      <p class="se-muted">Built by <a href="https://bazilier.com" target="_blank" rel="noopener">Kirill Bazilier</a></p>
+      <div class="se-footer-links">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- SOLUTION -->
-<section class="how-it-works">
-  <div class="container">
-    <div class="section-label">The solution</div>
-    <h2>Steadicam for your eyes.</h2>
-    <p class="section-desc">SteadyEye shows one word at a time in a compact bar under the front camera lens. Your gaze never leaves the camera.</p>
-
-    <div class="steps">
-      <div class="step"><div class="step-num">01</div><h3>Paste your script</h3><p>Write or paste any text. AI optimizes it for speaking — expands abbreviations, converts numbers to words, adds pause markers.</p></div>
-      <div class="step"><div class="step-num">02</div><h3>Hit record</h3><p>Words appear one at a time under the camera lens. Adjust speed from slow to fast. Works with AirPods, DJI, wired mics.</p></div>
-      <div class="step"><div class="step-num">03</div><h3>One take. Done.</h3><p>Record in 4K. Preview instantly. Save or retake. No memorizing, no eye drift, no 47th attempt.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- SCREENSHOTS -->
-<section class="screenshots" id="features">
-  <div class="container">
-    <div class="section-label">See it in action</div>
-    <h2>Built for creators who ship fast.</h2>
-  </div>
-  <div class="screenshot-scroll">
-    <div class="screenshot-card"><img src="/img/steadyeye/01.png" alt="SteadyEye word-by-word mode" loading="lazy"></div>
-    <div class="screenshot-card"><img src="/img/steadyeye/02.png" alt="SteadyEye 3-line mode" loading="lazy"></div>
-    <div class="screenshot-card"><img src="/img/steadyeye/03.png" alt="AI script optimization" loading="lazy"></div>
-    <div class="screenshot-card"><img src="/img/steadyeye/04.png" alt="Bulk import" loading="lazy"></div>
-    <div class="screenshot-card"><img src="/img/steadyeye/05.png" alt="Script list" loading="lazy"></div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section class="features">
-  <div class="container">
-    <div class="features-grid">
-      <div class="feature-card"><div class="feature-icon">◉</div><h3>Word-by-word display</h3><p>No competitor has this. Text appears one word at a time right under the camera lens. Zero eye drift.</p></div>
-      <div class="feature-card"><div class="feature-icon">⚡</div><h3>AI script optimization</h3><p>Converts numbers to words, expands abbreviations, shortens sentences, adds pause markers.</p></div>
-      <div class="feature-card"><div class="feature-icon">🎙</div><h3>Any microphone</h3><p>AirPods, Bluetooth, wired, DJI — plug in and go. Zero recording glitches.</p></div>
-      <div class="feature-card"><div class="feature-icon mono">4K</div><h3>4K recording</h3><p>Front camera, custom FPS, countdown timer, instant preview with retake or save.</p></div>
-      <div class="feature-card"><div class="feature-icon">🌍</div><h3>Any language</h3><p>English, Spanish, German, French, Russian, Arabic — and proper CJK support.</p></div>
-      <div class="feature-card"><div class="feature-icon">📋</div><h3>Bulk import</h3><p>Paste a wall of scripts. AI splits and optimizes each one separately.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="pricing" id="pricing">
-  <div class="container">
-    <div class="section-label">Simple pricing</div>
-    <h2>Start free. Upgrade when you're ready.</h2>
-    <p class="section-desc">Free tier includes the full script editor and 3 AI optimizations. Paid unlocks recording, unlimited AI, and bulk import.</p>
-
-    <div class="pricing-grid">
-      <div class="pricing-card">
-        <div class="pricing-name">Free</div>
-        <div class="pricing-price">$0</div>
-        <div class="pricing-period">forever</div>
-        <ul class="pricing-features"><li>Script editor</li><li>Create, edit, delete scripts</li><li>3 AI optimizations</li></ul>
-      </div>
-      <div class="pricing-card popular">
-        <div class="pricing-badge">Best value</div>
-        <div class="pricing-name">Annual</div>
-        <div class="pricing-price">$49.99<span>/yr</span></div>
-        <div class="pricing-period">$4.17/mo · 7-day free trial</div>
-        <ul class="pricing-features"><li>Everything in Free</li><li>Front camera recording</li><li>Unlimited AI optimization</li><li>Bulk import</li><li>4K · Custom FPS</li></ul>
-        <a href="https://apps.apple.com/app/steadyeye-teleprompter/id6761066976" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Start free trial</a>
-      </div>
-      <div class="pricing-card">
-        <div class="pricing-name">Monthly</div>
-        <div class="pricing-price">$6.99<span>/mo</span></div>
-        <div class="pricing-period">cancel anytime</div>
-        <ul class="pricing-features"><li>Everything in Annual</li><li>No commitment</li></ul>
-      </div>
-      <div class="pricing-card">
-        <div class="pricing-name">Lifetime</div>
-        <div class="pricing-price">$99.99</div>
-        <div class="pricing-period">one-time</div>
-        <ul class="pricing-features"><li>Everything, forever</li><li>All future updates</li></ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="final-cta" id="download">
-  <div class="container">
-    <h2>Stop memorizing scripts.<br>Start making eye contact.</h2>
-    <p class="section-desc">One take. Done.</p>
-    <a href="https://apps.apple.com/app/steadyeye-teleprompter/id6761066976" target="_blank" rel="noopener" class="app-store-badge">
-      <img src="/img/app-store-badge.svg" alt="Download SteadyEye on the App Store" width="120" height="40">
-    </a>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="container footer-inner">
-    <div class="footer-left">
-      <span class="logo"><img src="/img/steadyeye/logo.png" alt="SteadyEye" class="logo-img"> SteadyEye</span>
-      <p>Built by <a href="https://bazilier.com" target="_blank" rel="noopener">Kirill Bazilier</a></p>
-    </div>
-    <div class="footer-links">
-      <a href="/privacy">Privacy</a>
-      <a href="/terms">Terms</a>
-    </div>
-  </div>
-</footer>
+  </footer>
+</div>
 
 <script>
-const words=["Every","word","appears","right","here","under","the","camera","so","your","eyes","never","move"];
-const el=document.querySelector('.word-display');
-let i=0;
-function tick(){el.style.opacity='0';setTimeout(()=>{el.textContent=words[i%words.length];el.style.opacity='1';i++;},100);}
-setInterval(tick,450);tick();
+  // The prompter pill: one word at a time, with the focus letter (about a
+  // third into the word, where the eye lands) in the accent — as in the app.
+  const words = ['Your', 'eyes', 'stay', 'right', 'under', 'the', 'lens.', 'One', 'word', 'at', 'a', 'time.', 'SteadyEye'];
+  const el = document.querySelector<HTMLElement>('.se-word');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.12});
-document.querySelectorAll('.step,.feature-card,.pricing-card,.comparison-card').forEach(e=>io.observe(e));
+  function render(word: string) {
+    if (!el) return;
+    const letters = word.replace(/\W+$/, '').length;
+    const focus = Math.max(0, Math.min(word.length - 1, Math.round((letters - 1) * 0.35)));
+    el.replaceChildren(
+      document.createTextNode(word.slice(0, focus)),
+      Object.assign(document.createElement('span'), { className: 'se-focus', textContent: word[focus] }),
+      document.createTextNode(word.slice(focus + 1)),
+    );
+  }
 
-window.addEventListener('scroll',()=>{document.querySelector('nav').classList.toggle('scrolled',scrollY>40);});
+  if (el) {
+    render('SteadyEye');
+    if (!reduce) {
+      let i = 0;
+      setInterval(() => { render(words[i % words.length]); i += 1; }, 420);
+    }
+  }
+
+  const nav = document.querySelector('.se-nav');
+  window.addEventListener('scroll', () => nav?.classList.toggle('se-nav-scrolled', window.scrollY > 24), { passive: true });
 </script>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SteadyEye","operatingSystem":"iOS","downloadUrl":"https://apps.apple.com/app/steadyeye-teleprompter/id6761066976","applicationCategory":"PhotographyApplication","description":"Teleprompter app with word-by-word display for natural eye contact in videos.","offers":{"@type":"AggregateOffer","lowPrice":"0","highPrice":"99.99","priceCurrency":"USD","offerCount":"4"},"author":{"@type":"Person","name":"Kirill Bazilier"}}
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SteadyEye","operatingSystem":"iOS","downloadUrl":"https://apps.apple.com/app/steadyeye-teleprompter/id6761066976","applicationCategory":"PhotographyApplication","description":"Teleprompter app with word-by-word display under the camera lens for natural eye contact in videos.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Kirill Bazilier"}}
 </script>
-
