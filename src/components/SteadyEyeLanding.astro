@@ -40,6 +40,7 @@ const gallery = [
     <div class="se-wrap se-nav-inner">
       <a href="/" class="se-logo"><img src="/img/steadyeye/logo.png" alt="" width="28" height="28"> SteadyEye</a>
       <div class="se-nav-links">
+        <a href="#how">How it works</a>
         <a href="#features">Features</a>
         <a href="#screens">Screens</a>
         <a href={appStore} target="_blank" rel="noopener" class="se-nav-cta">Download</a>
@@ -68,33 +69,6 @@ const gallery = [
     </div>
   </header>
 
-  <!-- LIVE PROMPTER: both reading modes, on the grey camera backdrop of the App Store screenshots -->
-  <section class="se-demo" aria-label="How the prompter reads">
-    <div class="se-wrap">
-      <div class="se-modes" aria-hidden="true">
-        <figure class="se-mode">
-          <figcaption>1 line</figcaption>
-          <div class="se-stage">
-            <div class="se-pill">
-              <div class="se-pill-top"><svg class="se-eye" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.4"/></svg><span class="se-rec"></span><span class="se-chev"></span></div>
-              <div class="se-lines" data-lines="1"></div>
-            </div>
-          </div>
-        </figure>
-        <figure class="se-mode">
-          <figcaption>3 lines</figcaption>
-          <div class="se-stage">
-            <div class="se-pill">
-              <div class="se-pill-top"><svg class="se-eye" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.4"/></svg><span class="se-rec"></span><span class="se-chev"></span></div>
-              <div class="se-lines" data-lines="3"></div>
-            </div>
-          </div>
-        </figure>
-      </div>
-      <p class="se-demo-caption">One line or three. <span class="se-muted">Always right under the camera.</span></p>
-    </div>
-  </section>
-
   <!-- PROBLEM -->
   <section class="se-section">
     <div class="se-wrap se-split">
@@ -103,6 +77,112 @@ const gallery = [
         <p class="se-body">Scrolling text makes your eyes scan left to right, and viewers notice instantly. SteadyEye keeps every word in one spot under the lens, so you look at your audience the whole time.</p>
       </div>
       <img src="/img/steadyeye/store/eyes.jpg" alt="Eyes reading scrolling text drift sideways; with SteadyEye they look straight into the camera" width="1000" height="901" loading="lazy" class="se-eyes">
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS: five steps, each with its own visual -->
+  <section class="se-section" id="how">
+    <div class="se-wrap">
+      <h2 class="se-h2">Notes in.<br><span class="se-accent">Video out.</span></h2>
+      <ol class="se-how">
+
+        <li class="se-how-step">
+          <div class="se-how-text">
+            <span class="se-step-num">01</span>
+            <h3>Add your script — or generate one.</h3>
+            <p class="se-muted">Paste notes as messy as you like, or give AI a topic. Either way you get a script that’s easy to read aloud.</p>
+          </div>
+          <div class="se-how-visual" aria-hidden="true">
+            <div class="se-editor">
+              <div class="se-editor-bar"><span class="se-accent">Cancel</span><b>New Script</b><span class="se-accent">Save</span></div>
+              <p class="se-editor-title">Landing page</p>
+              <p class="se-editor-body">landing page — 5 parts, most people get the proportions wrong. Headline = 5%. Pain points — 15%. Benefits = 20%…</p>
+              <div class="se-editor-actions">
+                <span class="se-btn-accent"><svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg> Optimize</span>
+                <span class="se-btn-ghost">Write from a topic</span>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="se-how-step">
+          <div class="se-how-text">
+            <span class="se-step-num">02</span>
+            <h3>Hit record.</h3>
+            <p class="se-muted">Front camera in up to 4K, stabilized, with whatever mic you have — AirPods, wired or DJI.</p>
+          </div>
+          <div class="se-how-visual" aria-hidden="true">
+            <div class="se-recorder">
+              <div class="se-rec-chips"><span><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v5"/></svg> iPhone Microphone</span><span>4K · 30fps</span></div>
+              <div class="se-rec-speed"><span>slow</span><i><b></b></i><span>fast</span></div>
+              <div class="se-rec-row">
+                <span class="se-rec-side"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+                <span class="se-rec-btn"><b></b></span>
+                <span class="se-rec-side"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4"/></svg></span>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="se-how-step se-how-step-wide">
+          <div class="se-how-text">
+            <span class="se-step-num">03</span>
+            <h3>Read without looking away.</h3>
+            <p class="se-muted">Words appear one at a time right under the lens — or three lines, if you like more context. Your eyes stay on the camera.</p>
+          </div>
+          <div class="se-how-visual">
+          <div class="se-modes" aria-hidden="true">
+            <figure class="se-mode">
+              <figcaption>1 line</figcaption>
+              <div class="se-stage">
+                <div class="se-pill">
+                  <div class="se-pill-top"><svg class="se-eye" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.4"/></svg><span class="se-rec"></span><span class="se-chev"></span></div>
+                  <div class="se-lines" data-lines="1"></div>
+                </div>
+              </div>
+            </figure>
+            <figure class="se-mode">
+              <figcaption>3 lines</figcaption>
+              <div class="se-stage">
+                <div class="se-pill">
+                  <div class="se-pill-top"><svg class="se-eye" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.4"/></svg><span class="se-rec"></span><span class="se-chev"></span></div>
+                  <div class="se-lines" data-lines="3"></div>
+                </div>
+              </div>
+            </figure>
+          </div>
+          </div>
+        </li>
+
+        <li class="se-how-step">
+          <div class="se-how-text">
+            <span class="se-step-num">04</span>
+            <h3>Make it sound like a studio. <span class="se-tag">New</span></h3>
+            <p class="se-muted">One tap removes background noise and echo and evens out your voice. Flip between the original and Studio to hear the difference.</p>
+          </div>
+          <div class="se-how-visual" aria-hidden="true">
+            <div class="se-sound">
+              <div class="se-wave-row"><span>Original</span><div class="se-wave se-wave-noisy"><i style="--h:22%"></i><i style="--h:64%"></i><i style="--h:30%"></i><i style="--h:81%"></i><i style="--h:18%"></i><i style="--h:55%"></i><i style="--h:92%"></i><i style="--h:35%"></i><i style="--h:70%"></i><i style="--h:26%"></i><i style="--h:60%"></i><i style="--h:88%"></i><i style="--h:40%"></i><i style="--h:75%"></i><i style="--h:20%"></i><i style="--h:58%"></i><i style="--h:95%"></i><i style="--h:33%"></i><i style="--h:66%"></i><i style="--h:28%"></i><i style="--h:84%"></i><i style="--h:45%"></i><i style="--h:72%"></i><i style="--h:24%"></i><i style="--h:62%"></i><i style="--h:90%"></i><i style="--h:38%"></i><i style="--h:68%"></i></div></div>
+              <div class="se-wave-row"><span class="se-accent">Studio</span><div class="se-wave se-wave-clean"><i style="--h:8%"></i><i style="--h:40%"></i><i style="--h:52%"></i><i style="--h:60%"></i><i style="--h:46%"></i><i style="--h:10%"></i><i style="--h:6%"></i><i style="--h:44%"></i><i style="--h:58%"></i><i style="--h:66%"></i><i style="--h:50%"></i><i style="--h:12%"></i><i style="--h:7%"></i><i style="--h:48%"></i><i style="--h:62%"></i><i style="--h:70%"></i><i style="--h:54%"></i><i style="--h:14%"></i><i style="--h:6%"></i><i style="--h:42%"></i><i style="--h:56%"></i><i style="--h:64%"></i><i style="--h:48%"></i><i style="--h:10%"></i><i style="--h:8%"></i><i style="--h:46%"></i><i style="--h:60%"></i><i style="--h:52%"></i></div></div>
+              <div class="se-sound-controls"><span class="se-sparkle-btn"><svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></span><span class="se-save-btn">Save to Camera Roll</span></div>
+            </div>
+          </div>
+        </li>
+
+        <li class="se-how-step">
+          <div class="se-how-text">
+            <span class="se-step-num">05</span>
+            <h3>Export and post.</h3>
+            <p class="se-muted">Save the take to your Camera Roll and post it wherever your audience is. No watermark with a subscription.</p>
+          </div>
+          <div class="se-how-visual" aria-hidden="true">
+            <div class="se-export">
+              <span class="se-toast"><b>✓</b> Saved to Camera Roll</span>
+              <div class="se-platforms"><span>Reels</span><span>TikTok</span><span>Shorts</span><span>YouTube</span><span>LinkedIn</span></div>
+            </div>
+          </div>
+        </li>
+      </ol>
     </div>
   </section>
 
@@ -131,18 +211,6 @@ const gallery = [
           </div>
         ))}
       </div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section class="se-section">
-    <div class="se-wrap">
-      <h2 class="se-h2">Notes in.<br><span class="se-accent">Video out.</span></h2>
-      <ol class="se-steps">
-        <li><span class="se-step-num">01</span><h3>Paste your messy notes.</h3><p class="se-muted">Bullet points, numbers, abbreviations. Or just a topic.</p></li>
-        <li><span class="se-step-num">02</span><h3>AI makes it ready to read aloud.</h3><p class="se-muted">Numbers become words, long sentences get shorter, pauses land where you breathe.</p></li>
-        <li><span class="se-step-num">03</span><h3>Tap to record.</h3><p class="se-muted">Read word by word under the lens. One take. Done.</p></li>
-      </ol>
     </div>
   </section>
 
