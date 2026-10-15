@@ -175,6 +175,16 @@ a { color: inherit; }
 .se-platforms { position: absolute; left: 18px; right: 18px; bottom: 18px; z-index: 1; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
 .se-platforms span { background: rgba(0, 0, 0, 0.55); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 999px; padding: 8px 16px; font-weight: 600; font-size: 0.95rem; }
 
+/* FAQ */
+.se-faq { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 48px; align-items: start; }
+.se-faq-list { display: grid; gap: 10px; }
+.se-faq-item { background: var(--se-card); border-radius: 20px; padding: 0 24px; }
+.se-faq-item summary { list-style: none; cursor: pointer; padding: 20px 32px 20px 0; font-weight: 700; font-size: 1.1rem; letter-spacing: -0.01em; position: relative; }
+.se-faq-item summary::-webkit-details-marker { display: none; }
+.se-faq-item summary::after { content: '+'; position: absolute; right: 0; top: 50%; transform: translateY(-50%); color: var(--se-accent); font-size: 1.6rem; font-weight: 500; transition: transform .2s; }
+.se-faq-item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.se-faq-item p { padding: 0 0 20px; font-size: 1.05rem; line-height: 1.55; }
+
 /* Final CTA */
 .se-final { padding: 120px 0 110px; text-align: center; border-top: 1px solid var(--se-line); background: radial-gradient(60% 50% at 50% 100%, rgba(253, 87, 45, 0.16), transparent); }
 .se-final .se-lead { margin: 22px auto 36px; }
@@ -189,7 +199,7 @@ a { color: inherit; }
 /* ── Phone ── */
 @media (max-width: 860px) {
   .se-hero { padding-top: 100px; }
-  .se-hero-grid, .se-split, .se-modes { grid-template-columns: 1fr; }
+  .se-hero-grid, .se-split, .se-modes, .se-faq { grid-template-columns: 1fr; }
   .se-hero-visual { width: min(340px, 86%); }
   .se-features { grid-template-columns: 1fr; gap: 24px; }
   .se-how-step, .se-how-step:nth-child(even) { grid-template-columns: 1fr; grid-template-areas: "text" "visual"; gap: 24px; padding: 24px; border-radius: 26px; }

@@ -4,7 +4,12 @@
 // headlines ending in the accent, the monospaced prompter pill with its
 // accented focus letter, accent-framed phones, tinted icon tiles.
 // Self-contained: does not import global.css (shared with other sites).
+import { Image } from 'astro:assets';
 import '../styles/steadyeye.css';
+import heroPhone from '../assets/steadyeye/hero-phone.png';
+import eyes from '../assets/steadyeye/eyes.jpg';
+import stepRecord from '../assets/steadyeye/step-record.jpg';
+import stepExport from '../assets/steadyeye/step-export.jpg';
 
 const appStore = 'https://apps.apple.com/app/steadyeye-teleprompter/id6761066976';
 
@@ -32,6 +37,7 @@ const features = [
       <div class="se-nav-links">
         <a href="#how">How it works</a>
         <a href="#features">Features</a>
+        <a href="#faq">FAQ</a>
         <a href={appStore} target="_blank" rel="noopener" class="se-nav-cta">Download</a>
       </div>
     </div>
@@ -53,7 +59,7 @@ const features = [
       </div>
       <div class="se-hero-visual">
         <div class="se-glow" aria-hidden="true"></div>
-        <img src="/img/steadyeye/store/hero-phone.png" alt="SteadyEye recording screen in three-line mode: “my eyes stay” right under the front camera" width="721" height="1100" class="se-hero-phone">
+        <Image src={heroPhone} alt="SteadyEye teleprompter on iPhone in three-line mode: “my eyes stay” right under the front camera" widths={[360, 440, 720, 880]} sizes="(max-width: 860px) 86vw, 440px" format="webp" quality={82} loading="eager" fetchpriority="high" class="se-hero-phone" />
       </div>
     </div>
   </header>
@@ -65,7 +71,7 @@ const features = [
         <h2 class="se-h2">No more<br>wandering<br><span class="se-accent">eyes.</span></h2>
         <p class="se-body">Scrolling text makes your eyes scan left to right, and viewers notice instantly. SteadyEye keeps every word in one spot under the lens, so you look at your audience the whole time.</p>
       </div>
-      <img src="/img/steadyeye/store/eyes.jpg" alt="Eyes reading scrolling text drift sideways; with SteadyEye they look straight into the camera" width="1000" height="901" loading="lazy" class="se-eyes">
+      <Image src={eyes} alt="Eyes reading a scrolling teleprompter drift sideways; with SteadyEye they look straight into the camera" widths={[480, 640, 1000]} sizes="(max-width: 860px) 92vw, 520px" format="webp" quality={80} class="se-eyes" />
     </div>
   </section>
 
@@ -112,7 +118,7 @@ const features = [
           </div>
           <div class="se-how-visual" aria-hidden="true">
             <div class="se-photo se-record">
-              <img src="/img/steadyeye/store/step-record.jpg" alt="" width="930" height="1000" loading="lazy">
+              <Image src={stepRecord} alt="" widths={[400, 600, 930]} sizes="(max-width: 860px) 92vw, 370px" format="webp" quality={80} />
               <div class="se-record-ui"><span class="se-rec-btn"><b></b></span><span>One take. Done.</span></div>
             </div>
           </div>
@@ -171,7 +177,7 @@ const features = [
           </div>
           <div class="se-how-visual" aria-hidden="true">
             <div class="se-photo se-export">
-              <img src="/img/steadyeye/store/step-export.jpg" alt="" width="861" height="900" loading="lazy">
+              <Image src={stepExport} alt="" widths={[400, 600, 861]} sizes="(max-width: 860px) 92vw, 370px" format="webp" quality={80} />
               <span class="se-toast"><b>✓</b> Saved to Camera Roll</span>
               <div class="se-platforms"><span>Reels</span><span>TikTok</span><span>Shorts</span><span>YouTube</span><span>LinkedIn</span></div>
             </div>
@@ -205,6 +211,47 @@ const features = [
             </p>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="se-section" id="faq">
+    <div class="se-wrap se-faq">
+      <h2 class="se-h2">Questions,<br><span class="se-accent">answered.</span></h2>
+      <div class="se-faq-list">
+        <details class="se-faq-item">
+          <summary>What is SteadyEye?</summary>
+          <p class="se-muted">SteadyEye is a teleprompter app for iPhone. It shows your script one word at a time (or three lines, if you prefer) right under the front camera, so you keep eye contact with your audience while you read.</p>
+        </details>
+        <details class="se-faq-item">
+          <summary>How is it different from a scrolling teleprompter?</summary>
+          <p class="se-muted">A scrolling teleprompter makes your eyes scan across lines, and viewers notice. SteadyEye keeps every word in the same spot under the lens, so your gaze stays on the camera for the whole take.</p>
+        </details>
+        <details class="se-faq-item">
+          <summary>Is SteadyEye free?</summary>
+          <p class="se-muted">You can download SteadyEye and start recording for free. A subscription removes the watermark and adds more AI scripts and Studio Sound enhancements.</p>
+        </details>
+        <details class="se-faq-item">
+          <summary>Can I use it for TikTok, Reels, Shorts and YouTube?</summary>
+          <p class="se-muted">Yes. Record with the front camera in up to 4K, then save the take to your Camera Roll and post it wherever your audience is.</p>
+        </details>
+        <details class="se-faq-item">
+          <summary>Can AI write my script?</summary>
+          <p class="se-muted">Yes. Paste messy notes and AI turns them into a script that’s easy to read aloud, or give it a topic and it drafts one for you.</p>
+        </details>
+        <details class="se-faq-item">
+          <summary>What is Studio Sound?</summary>
+          <p class="se-muted">One tap after recording removes background noise and echo and evens out your voice. Only the audio is processed; the video stays on your phone.</p>
+        </details>
+        <details class="se-faq-item">
+          <summary>Which languages and microphones does it support?</summary>
+          <p class="se-muted">Scripts can be in any language, including right-to-left Arabic and Chinese, Japanese and Korean. Use the iPhone microphone, AirPods, Bluetooth, wired or DJI mics.</p>
+        </details>
+        <details class="se-faq-item">
+          <summary>Which iPhones does SteadyEye run on?</summary>
+          <p class="se-muted">Any iPhone with iOS 17 or later.</p>
+        </details>
       </div>
     </div>
   </section>
@@ -276,6 +323,6 @@ const features = [
   window.addEventListener('scroll', () => nav?.classList.toggle('se-nav-scrolled', window.scrollY > 24), { passive: true });
 </script>
 
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SteadyEye","operatingSystem":"iOS","downloadUrl":"https://apps.apple.com/app/steadyeye-teleprompter/id6761066976","applicationCategory":"PhotographyApplication","description":"Teleprompter app with word-by-word display under the camera lens for natural eye contact in videos.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Kirill Bazilier"}}
-</script>
+<script type="application/ld+json" set:html={JSON.stringify({"@context": "https://schema.org", "@type": "MobileApplication", "name": "SteadyEye", "alternateName": "SteadyEye Teleprompter", "url": "https://steadyeye.bazilier.com/", "operatingSystem": "iOS 17 or later", "applicationCategory": "MultimediaApplication", "downloadUrl": "https://apps.apple.com/app/steadyeye-teleprompter/id6761066976", "installUrl": "https://apps.apple.com/app/steadyeye-teleprompter/id6761066976", "image": "https://steadyeye.bazilier.com/img/steadyeye/og-image.jpg", "description": "Teleprompter app for iPhone that shows your script one word at a time right under the front camera, so you keep eye contact. AI scripts, studio sound, 4K recording.", "featureList": ["Word-by-word teleprompter under the camera lens", "Three-line mode", "Eye-contact score", "AI script writing and optimization", "Studio Sound noise and echo removal", "4K stabilized front-camera recording", "External microphones", "Any language, including RTL and CJK"], "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Person", "name": "Kirill Vasilyev"}})} />
+
+<script type="application/ld+json" set:html={JSON.stringify({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is SteadyEye?", "acceptedAnswer": {"@type": "Answer", "text": "SteadyEye is a teleprompter app for iPhone. It shows your script one word at a time (or three lines, if you prefer) right under the front camera, so you keep eye contact with your audience while you read."}}, {"@type": "Question", "name": "How is it different from a scrolling teleprompter?", "acceptedAnswer": {"@type": "Answer", "text": "A scrolling teleprompter makes your eyes scan across lines, and viewers notice. SteadyEye keeps every word in the same spot under the lens, so your gaze stays on the camera for the whole take."}}, {"@type": "Question", "name": "Is SteadyEye free?", "acceptedAnswer": {"@type": "Answer", "text": "You can download SteadyEye and start recording for free. A subscription removes the watermark and adds more AI scripts and Studio Sound enhancements."}}, {"@type": "Question", "name": "Can I use it for TikTok, Reels, Shorts and YouTube?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Record with the front camera in up to 4K, then save the take to your Camera Roll and post it wherever your audience is."}}, {"@type": "Question", "name": "Can AI write my script?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Paste messy notes and AI turns them into a script that’s easy to read aloud, or give it a topic and it drafts one for you."}}, {"@type": "Question", "name": "What is Studio Sound?", "acceptedAnswer": {"@type": "Answer", "text": "One tap after recording removes background noise and echo and evens out your voice. Only the audio is processed; the video stays on your phone."}}, {"@type": "Question", "name": "Which languages and microphones does it support?", "acceptedAnswer": {"@type": "Answer", "text": "Scripts can be in any language, including right-to-left Arabic and Chinese, Japanese and Korean. Use the iPhone microphone, AirPods, Bluetooth, wired or DJI mics."}}, {"@type": "Question", "name": "Which iPhones does SteadyEye run on?", "acceptedAnswer": {"@type": "Answer", "text": "Any iPhone with iOS 17 or later."}}]})} />

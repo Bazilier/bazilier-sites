@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /doseboard/
+
+Sitemap: https://steadyeye.bazilier.com/sitemap-index.xml
