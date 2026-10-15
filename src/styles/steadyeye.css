@@ -31,7 +31,7 @@ a { color: inherit; }
 .se-h1, .se-h2 { font-weight: 800; letter-spacing: -0.045em; line-height: 0.98; }
 .se-h1 { font-size: clamp(3rem, 8.4vw, 6rem); }
 .se-h2 { font-size: clamp(2.4rem, 6vw, 4.2rem); margin-bottom: 40px; }
-.se-lead { font-size: clamp(1.1rem, 1.6vw, 1.3rem); color: #c7c7cc; max-width: 34ch; margin-top: 24px; }
+.se-lead { font-size: clamp(1.1rem, 1.6vw, 1.3rem); color: #c7c7cc; max-width: 38ch; margin-top: 24px; }
 .se-body { font-size: 1.15rem; color: #c7c7cc; max-width: 40ch; margin-top: -12px; }
 
 /* ── Nav ── */
