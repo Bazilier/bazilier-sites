@@ -59,7 +59,11 @@ const features = [
       </div>
       <div class="se-hero-visual">
         <div class="se-glow" aria-hidden="true"></div>
-        <Image src={heroPhone} alt="SteadyEye teleprompter on iPhone in three-line mode: “my eyes stay” right under the front camera" widths={[360, 440, 720, 880]} sizes="(max-width: 860px) 86vw, 440px" format="webp" quality={82} loading="eager" fetchpriority="high" class="se-hero-phone" />
+        <div class="se-hero-shot">
+          <Image src={heroPhone} alt="SteadyEye teleprompter on iPhone in three-line mode: “my eyes stay” right under the front camera" widths={[360, 440, 720, 880]} sizes="(max-width: 860px) 86vw, 440px" format="webp" quality={82} loading="eager" fetchpriority="high" class="se-hero-phone" />
+          <!-- Live three-line prompter laid over the photo's own pill text -->
+          <div class="se-hero-pill" aria-hidden="true"><div class="se-lines" data-lines="3"></div></div>
+        </div>
       </div>
     </div>
   </header>
@@ -308,16 +312,17 @@ const features = [
     return row;
   }
 
-  const one = document.querySelector<HTMLElement>('.se-lines[data-lines="1"]');
-  const three = document.querySelector<HTMLElement>('.se-lines[data-lines="3"]');
+  // Every pill on the page — the hero phone and step 3's two — in step.
+  const ones = document.querySelectorAll<HTMLElement>('.se-lines[data-lines="1"]');
+  const threes = document.querySelectorAll<HTMLElement>('.se-lines[data-lines="3"]');
   let n = 0;
   function show() {
     const at = (k: number) => words[(k + words.length) % words.length];
-    one?.replaceChildren(line(at(n), false));
-    three?.replaceChildren(line(at(n - 1), true), line(at(n), false), line(at(n + 1), true));
+    ones.forEach((el) => el.replaceChildren(line(at(n), false)));
+    threes.forEach((el) => el.replaceChildren(line(at(n - 1), true), line(at(n), false), line(at(n + 1), true)));
   }
   show();
-  if (!reduce) setInterval(() => { n = (n + 1) % words.length; show(); }, 480);
+  if (!reduce) setInterval(() => { if (!document.hidden) { n = (n + 1) % words.length; show(); } }, 500);
 
   const nav = document.querySelector('.se-nav');
   window.addEventListener('scroll', () => nav?.classList.toggle('se-nav-scrolled', window.scrollY > 24), { passive: true });
