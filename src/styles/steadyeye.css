@@ -129,6 +129,10 @@ a { color: inherit; }
 .se-how-text p { font-size: 1.1rem; }
 .se-how-visual { grid-area: visual; min-width: 0; height: var(--se-visual-h); display: flex; flex-direction: column; }
 .se-how-visual > * { flex: 1; min-height: 0; }
+/* Visuals at 70% of their designed size, everything inside scaled alike. */
+@media (min-width: 861px) {
+  .se-how-visual { zoom: 0.7; justify-self: center; width: 70%; }
+}
 
 /* 03: the two prompter cards, stacked */
 .se-how .se-modes { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; gap: 14px; }
