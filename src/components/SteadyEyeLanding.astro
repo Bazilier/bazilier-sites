@@ -1,8 +1,9 @@
 ---
-// SteadyEye landing. Same visual language as the app's paywall and
-// onboarding and the App Store screenshots: near-black ground, heavy tight
-// headlines ending in the accent, the monospaced prompter pill with its
-// accented focus letter, accent-framed phones, tinted icon tiles.
+// SteadyEye landing, in English, Brazilian Portuguese or Latin American
+// Spanish (copy in src/i18n/steadyeye.ts). Same visual language as the app's
+// paywall and onboarding and the App Store screenshots: near-black ground,
+// heavy tight headlines ending in the accent, the monospaced prompter pill
+// with its accented focus letter, accent-framed phones, tinted icon tiles.
 // Self-contained: does not import global.css (shared with other sites).
 import { Image } from 'astro:assets';
 import '../styles/steadyeye.css';
@@ -10,22 +11,19 @@ import heroPhone from '../assets/steadyeye/hero-phone.png';
 import eyes from '../assets/steadyeye/eyes.jpg';
 import stepRecord from '../assets/steadyeye/step-record.jpg';
 import stepExport from '../assets/steadyeye/step-export.jpg';
+import { copy, LANGS, type Lang } from '../i18n/steadyeye';
 
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = copy[lang];
+const home = LANGS.find((l) => l.code === lang)!.path;
 const appStore = 'https://apps.apple.com/app/steadyeye-teleprompter/id6761066976';
-
-const features = [
-  { icon: 'word', title: 'One word, under the lens.', body: 'Your script appears right where the camera is. Prefer more context? Switch to three lines.' },
-  { icon: 'eye', title: 'Eye-contact score.', body: 'After every take, see how much of it you held the camera’s gaze.' },
-  { icon: 'wave', title: 'Studio sound.', body: 'Your voice without background noise or echo. One tap after recording.', tag: 'New' },
-  { icon: 'sparkles', title: 'AI scripts.', body: 'Paste messy notes or just a topic. Get a script that’s ready to read aloud.' },
-  { icon: 'video', title: '4K, stabilized.', body: 'Sharp and steady front-camera video, at the frame rate you pick.' },
-  { icon: 'mic', title: 'Any microphone.', body: 'AirPods, Bluetooth, wired or DJI. Plug in and record.' },
-  { icon: 'globe', title: 'Any language.', body: 'Spanish to Russian, Arabic to Japanese — with proper right-to-left and CJK support.' },
-  { icon: 'drop', title: 'No watermark.', body: 'With a subscription, post your takes exactly as they are.' },
-];
+const site = 'https://steadyeye.bazilier.com';
+const head = (h: [string, string]) => `${h[0]}<br><span class="se-accent">${h[1]}</span>`;
+const eyeSvg = `<svg class="se-eye" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.4"/></svg>`;
 ---
 
-<div class="se">
+<div class="se" data-words={JSON.stringify(t.words)}>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -33,12 +31,17 @@ const features = [
   <!-- NAV -->
   <nav class="se-nav">
     <div class="se-wrap se-nav-inner">
-      <a href="/" class="se-logo"><img src="/img/steadyeye/logo.png" alt="" width="28" height="28"> SteadyEye</a>
+      <a href={home} class="se-logo"><img src="/img/steadyeye/logo.png" alt="" width="28" height="28"> SteadyEye</a>
       <div class="se-nav-links">
-        <a href="#how">How it works</a>
-        <a href="#features">Features</a>
-        <a href="#faq">FAQ</a>
-        <a href={appStore} target="_blank" rel="noopener" class="se-nav-cta">Download</a>
+        <a href="#how">{t.nav.how}</a>
+        <a href="#features">{t.nav.features}</a>
+        <a href="#faq">{t.nav.faq}</a>
+        <span class="se-lang">
+          {LANGS.map((l) => (
+            <a href={l.path} hreflang={l.hreflang} lang={l.htmlLang} title={l.name} aria-current={l.code === lang ? 'page' : undefined}>{l.label}</a>
+          ))}
+        </span>
+        <a href={appStore} target="_blank" rel="noopener" class="se-nav-cta">{t.nav.download}</a>
       </div>
     </div>
   </nav>
@@ -47,20 +50,20 @@ const features = [
   <header class="se-hero">
     <div class="se-wrap se-hero-grid">
       <div class="se-hero-copy">
-        <span class="se-chip"><svg class="se-eye" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.4"/></svg> AI eye-contact tracking</span>
-        <h1 class="se-h1">Teleprompter<br>for real<br><span class="se-accent">eye contact.</span></h1>
-        <p class="se-lead">Built for creators, bloggers and influencers. SteadyEye shows your script one word at a time, right under the camera lens. Your eyes stay locked. Your audience sees confidence, not reading.</p>
+        <span class="se-chip"><Fragment set:html={eyeSvg} /> {t.hero.chip}</span>
+        <h1 class:list={['se-h1', { 'se-h1-long': t.hero.h1Long }]} set:html={head(t.hero.h1)} />
+        <p class="se-lead">{t.hero.lead}</p>
         <div class="se-ctas">
           <a href={appStore} target="_blank" rel="noopener" class="se-badge">
-            <img src="/img/steadyeye/app-store-badge.svg" alt="Download SteadyEye on the App Store" width="162" height="54">
+            <img src={t.hero.badge} alt={t.hero.badgeAlt} width="162" height="54">
           </a>
-          <span class="se-note">Free to start · iPhone</span>
+          <span class="se-note">{t.hero.note}</span>
         </div>
       </div>
       <div class="se-hero-visual">
         <div class="se-glow" aria-hidden="true"></div>
         <div class="se-hero-shot">
-          <Image src={heroPhone} alt="SteadyEye teleprompter on iPhone in three-line mode: “my eyes stay” right under the front camera" widths={[360, 440, 720, 880]} sizes="(max-width: 860px) 86vw, 440px" format="webp" quality={82} loading="eager" fetchpriority="high" class="se-hero-phone" />
+          <Image src={heroPhone} alt={t.hero.phoneAlt} widths={[360, 440, 720, 880]} sizes="(max-width: 860px) 86vw, 440px" format="webp" quality={82} loading="eager" fetchpriority="high" class="se-hero-phone" />
           <!-- Live three-line prompter laid over the photo's own pill text -->
           <div class="se-hero-pill" aria-hidden="true"><div class="se-lines" data-lines="3"></div></div>
         </div>
@@ -72,42 +75,37 @@ const features = [
   <section class="se-section">
     <div class="se-wrap se-split">
       <div>
-        <h2 class="se-h2">No more<br>wandering<br><span class="se-accent">eyes.</span></h2>
-        <p class="se-body">Scrolling text makes your eyes scan left to right, and viewers notice instantly. SteadyEye keeps every word in one spot under the lens, so you look at your audience the whole time.</p>
+        <h2 class="se-h2" set:html={head(t.problem.h2)} />
+        <p class="se-body">{t.problem.body}</p>
       </div>
-      <Image src={eyes} alt="Eyes reading a scrolling teleprompter drift sideways; with SteadyEye they look straight into the camera" widths={[480, 640, 1000]} sizes="(max-width: 860px) 92vw, 520px" format="webp" quality={80} class="se-eyes" />
+      <Image src={eyes} alt={t.problem.eyesAlt} widths={[480, 640, 1000]} sizes="(max-width: 860px) 92vw, 520px" format="webp" quality={80} class="se-eyes" />
     </div>
   </section>
 
   <!-- HOW IT WORKS: five steps, each with its own visual -->
   <section class="se-section" id="how">
     <div class="se-wrap">
-      <h2 class="se-h2">How it<br><span class="se-accent">works.</span></h2>
+      <h2 class="se-h2" set:html={head(t.how.h2)} />
       <ol class="se-how">
 
         <li class="se-how-step">
           <div class="se-how-text">
             <span class="se-step-num">01</span>
-            <h3>Add your script — or generate one.</h3>
-            <p class="se-muted">Paste notes as messy as you like, or give AI a topic. Either way you get a script that’s easy to read aloud.</p>
+            <h3>{t.how.s1.h3}</h3>
+            <p class="se-muted">{t.how.s1.p}</p>
           </div>
           <div class="se-how-visual" aria-hidden="true">
             <div class="se-modes">
               <figure class="se-mode">
-                <figcaption>Your notes</figcaption>
+                <figcaption>{t.how.s1.notesLabel}</figcaption>
                 <div class="se-editor se-editor-card">
-                  <p class="se-editor-body">landing page — 5 parts and most people get the proportions completely wrong. Headline = 5% of the page. Pain points — 15%. Benefits = 20%. Product — 40%!!! And the Offer w/ CTA — 20%. most founders spend 80% on product &amp; skip pain + benefits…</p>
+                  <p class="se-editor-body">{t.how.s1.notes}</p>
                 </div>
               </figure>
               <figure class="se-mode">
-                <figcaption><span class="se-accent">✦</span> Ready to read</figcaption>
+                <figcaption><span class="se-accent">✦</span> {t.how.s1.readyLabel}</figcaption>
                 <div class="se-editor se-editor-card se-editor-clean">
-                  <p>Your landing page has five parts.</p>
-                  <p>And most people get the proportions wrong.</p>
-                  <p>Here is the formula.</p>
-                  <p>Headline: five percent of the page.</p>
-                  <p>Pain points: fifteen percent.</p>
-                  <p>Benefits: twenty percent.</p>
+                  {t.how.s1.ready.map((line) => <p>{line}</p>)}
                 </div>
               </figure>
             </div>
@@ -117,13 +115,13 @@ const features = [
         <li class="se-how-step">
           <div class="se-how-text">
             <span class="se-step-num">02</span>
-            <h3>Hit record.</h3>
-            <p class="se-muted">Front camera in up to 4K, stabilized, with whatever mic you have — AirPods, wired or DJI.</p>
+            <h3>{t.how.s2.h3}</h3>
+            <p class="se-muted">{t.how.s2.p}</p>
           </div>
           <div class="se-how-visual" aria-hidden="true">
             <div class="se-photo se-record">
               <Image src={stepRecord} alt="" widths={[400, 600, 930]} sizes="(max-width: 860px) 92vw, 370px" format="webp" quality={80} />
-              <div class="se-record-ui"><span class="se-rec-btn"><b></b></span><span>One take. Done.</span></div>
+              <div class="se-record-ui"><span class="se-rec-btn"><b></b></span><span>{t.how.s2.overlay}</span></div>
             </div>
           </div>
         </li>
@@ -131,25 +129,25 @@ const features = [
         <li class="se-how-step">
           <div class="se-how-text">
             <span class="se-step-num">03</span>
-            <h3>Read without looking away.</h3>
-            <p class="se-muted">Words appear one at a time right under the lens — or three lines, if you like more context. Your eyes stay on the camera.</p>
+            <h3>{t.how.s3.h3}</h3>
+            <p class="se-muted">{t.how.s3.p}</p>
           </div>
           <div class="se-how-visual">
           <div class="se-modes" aria-hidden="true">
             <figure class="se-mode">
-              <figcaption>1 line</figcaption>
+              <figcaption>{t.how.s3.one}</figcaption>
               <div class="se-stage">
                 <div class="se-pill">
-                  <div class="se-pill-top"><svg class="se-eye" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.4"/></svg><span class="se-rec"></span><span class="se-chev"></span></div>
+                  <div class="se-pill-top"><Fragment set:html={eyeSvg} /><span class="se-rec"></span><span class="se-chev"></span></div>
                   <div class="se-lines" data-lines="1"></div>
                 </div>
               </div>
             </figure>
             <figure class="se-mode">
-              <figcaption>3 lines</figcaption>
+              <figcaption>{t.how.s3.three}</figcaption>
               <div class="se-stage">
                 <div class="se-pill">
-                  <div class="se-pill-top"><svg class="se-eye" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.4"/></svg><span class="se-rec"></span><span class="se-chev"></span></div>
+                  <div class="se-pill-top"><Fragment set:html={eyeSvg} /><span class="se-rec"></span><span class="se-chev"></span></div>
                   <div class="se-lines" data-lines="3"></div>
                 </div>
               </div>
@@ -161,14 +159,14 @@ const features = [
         <li class="se-how-step">
           <div class="se-how-text">
             <span class="se-step-num">04</span>
-            <h3>Make it sound like a studio. <span class="se-tag">New</span></h3>
-            <p class="se-muted">One tap removes background noise and echo and evens out your voice. Flip between the original and Studio to hear the difference.</p>
+            <h3>{t.how.s4.h3} <span class="se-tag">{t.how.s4.tag}</span></h3>
+            <p class="se-muted">{t.how.s4.p}</p>
           </div>
           <div class="se-how-visual" aria-hidden="true">
             <div class="se-sound">
-              <div class="se-wave-row"><span>Original</span><div class="se-wave se-wave-noisy"><i style="--h:22%"></i><i style="--h:64%"></i><i style="--h:30%"></i><i style="--h:81%"></i><i style="--h:18%"></i><i style="--h:55%"></i><i style="--h:92%"></i><i style="--h:35%"></i><i style="--h:70%"></i><i style="--h:26%"></i><i style="--h:60%"></i><i style="--h:88%"></i><i style="--h:40%"></i><i style="--h:75%"></i><i style="--h:20%"></i><i style="--h:58%"></i><i style="--h:95%"></i><i style="--h:33%"></i><i style="--h:66%"></i><i style="--h:28%"></i><i style="--h:84%"></i><i style="--h:45%"></i><i style="--h:72%"></i><i style="--h:24%"></i><i style="--h:62%"></i><i style="--h:90%"></i><i style="--h:38%"></i><i style="--h:68%"></i></div></div>
-              <div class="se-wave-row"><span class="se-accent">Studio</span><div class="se-wave se-wave-clean"><i style="--h:8%"></i><i style="--h:40%"></i><i style="--h:52%"></i><i style="--h:60%"></i><i style="--h:46%"></i><i style="--h:10%"></i><i style="--h:6%"></i><i style="--h:44%"></i><i style="--h:58%"></i><i style="--h:66%"></i><i style="--h:50%"></i><i style="--h:12%"></i><i style="--h:7%"></i><i style="--h:48%"></i><i style="--h:62%"></i><i style="--h:70%"></i><i style="--h:54%"></i><i style="--h:14%"></i><i style="--h:6%"></i><i style="--h:42%"></i><i style="--h:56%"></i><i style="--h:64%"></i><i style="--h:48%"></i><i style="--h:10%"></i><i style="--h:8%"></i><i style="--h:46%"></i><i style="--h:60%"></i><i style="--h:52%"></i></div></div>
-              <div class="se-sound-controls"><span class="se-sparkle-btn"><svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></span><span class="se-save-btn">Save to Camera Roll</span></div>
+              <div class="se-wave-row"><span>{t.how.s4.original}</span><div class="se-wave se-wave-noisy"><i style="--h:22%"></i><i style="--h:64%"></i><i style="--h:30%"></i><i style="--h:81%"></i><i style="--h:18%"></i><i style="--h:55%"></i><i style="--h:92%"></i><i style="--h:35%"></i><i style="--h:70%"></i><i style="--h:26%"></i><i style="--h:60%"></i><i style="--h:88%"></i><i style="--h:40%"></i><i style="--h:75%"></i><i style="--h:20%"></i><i style="--h:58%"></i><i style="--h:95%"></i><i style="--h:33%"></i><i style="--h:66%"></i><i style="--h:28%"></i><i style="--h:84%"></i><i style="--h:45%"></i><i style="--h:72%"></i><i style="--h:24%"></i><i style="--h:62%"></i><i style="--h:90%"></i><i style="--h:38%"></i><i style="--h:68%"></i></div></div>
+              <div class="se-wave-row"><span class="se-accent">{t.how.s4.studio}</span><div class="se-wave se-wave-clean"><i style="--h:8%"></i><i style="--h:40%"></i><i style="--h:52%"></i><i style="--h:60%"></i><i style="--h:46%"></i><i style="--h:10%"></i><i style="--h:6%"></i><i style="--h:44%"></i><i style="--h:58%"></i><i style="--h:66%"></i><i style="--h:50%"></i><i style="--h:12%"></i><i style="--h:7%"></i><i style="--h:48%"></i><i style="--h:62%"></i><i style="--h:70%"></i><i style="--h:54%"></i><i style="--h:14%"></i><i style="--h:6%"></i><i style="--h:42%"></i><i style="--h:56%"></i><i style="--h:64%"></i><i style="--h:48%"></i><i style="--h:10%"></i><i style="--h:8%"></i><i style="--h:46%"></i><i style="--h:60%"></i><i style="--h:52%"></i></div></div>
+              <div class="se-sound-controls"><span class="se-sparkle-btn"><svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></span><span class="se-save-btn">{t.how.s4.save}</span></div>
             </div>
           </div>
         </li>
@@ -176,13 +174,13 @@ const features = [
         <li class="se-how-step">
           <div class="se-how-text">
             <span class="se-step-num">05</span>
-            <h3>Export and post.</h3>
-            <p class="se-muted">Save the take to your Camera Roll and post it wherever your audience is. No watermark with a subscription.</p>
+            <h3>{t.how.s5.h3}</h3>
+            <p class="se-muted">{t.how.s5.p}</p>
           </div>
           <div class="se-how-visual" aria-hidden="true">
             <div class="se-photo se-export">
               <Image src={stepExport} alt="" widths={[400, 600, 861]} sizes="(max-width: 860px) 92vw, 370px" format="webp" quality={80} />
-              <span class="se-toast"><b>✓</b> Saved to Camera Roll</span>
+              <span class="se-toast"><b>✓</b> {t.how.s5.toast}</span>
               <div class="se-platforms"><span>Reels</span><span>TikTok</span><span>Shorts</span><span>YouTube</span><span>LinkedIn</span></div>
             </div>
           </div>
@@ -194,9 +192,9 @@ const features = [
   <!-- FEATURES -->
   <section class="se-section" id="features">
     <div class="se-wrap">
-      <h2 class="se-h2">Everything for<br><span class="se-accent">one clean take.</span></h2>
+      <h2 class="se-h2" set:html={head(t.features.h2)} />
       <div class="se-features">
-        {features.map((f) => (
+        {t.features.items.map((f) => (
           <div class="se-feature">
             <span class="se-tile" aria-hidden="true">
               {f.icon === 'word' && <svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="10" rx="5"/><path d="M8 12h8"/></svg>}
@@ -222,40 +220,14 @@ const features = [
   <!-- FAQ -->
   <section class="se-section" id="faq">
     <div class="se-wrap se-faq">
-      <h2 class="se-h2">Questions,<br><span class="se-accent">answered.</span></h2>
+      <h2 class="se-h2" set:html={head(t.faq.h2)} />
       <div class="se-faq-list">
-        <details class="se-faq-item">
-          <summary>What is SteadyEye?</summary>
-          <p class="se-muted">SteadyEye is a teleprompter app for iPhone. It shows your script one word at a time (or three lines, if you prefer) right under the front camera, so you keep eye contact with your audience while you read.</p>
-        </details>
-        <details class="se-faq-item">
-          <summary>How is it different from a scrolling teleprompter?</summary>
-          <p class="se-muted">A scrolling teleprompter makes your eyes scan across lines, and viewers notice. SteadyEye keeps every word in the same spot under the lens, so your gaze stays on the camera for the whole take.</p>
-        </details>
-        <details class="se-faq-item">
-          <summary>Is SteadyEye free?</summary>
-          <p class="se-muted">You can download SteadyEye and start recording for free. A subscription removes the watermark and adds more AI scripts and Studio Sound enhancements.</p>
-        </details>
-        <details class="se-faq-item">
-          <summary>Can I use it for TikTok, Reels, Shorts and YouTube?</summary>
-          <p class="se-muted">Yes. Record with the front camera in up to 4K, then save the take to your Camera Roll and post it wherever your audience is.</p>
-        </details>
-        <details class="se-faq-item">
-          <summary>Can AI write my script?</summary>
-          <p class="se-muted">Yes. Paste messy notes and AI turns them into a script that’s easy to read aloud, or give it a topic and it drafts one for you.</p>
-        </details>
-        <details class="se-faq-item">
-          <summary>What is Studio Sound?</summary>
-          <p class="se-muted">One tap after recording removes background noise and echo and evens out your voice. Only the audio is processed; the video stays on your phone.</p>
-        </details>
-        <details class="se-faq-item">
-          <summary>Which languages and microphones does it support?</summary>
-          <p class="se-muted">Scripts can be in any language, including right-to-left Arabic and Chinese, Japanese and Korean. Use the iPhone microphone, AirPods, Bluetooth, wired or DJI mics.</p>
-        </details>
-        <details class="se-faq-item">
-          <summary>Which iPhones does SteadyEye run on?</summary>
-          <p class="se-muted">Any iPhone with iOS 17 or later.</p>
-        </details>
+        {t.faq.items.map(([q, a]) => (
+          <details class="se-faq-item">
+            <summary>{q}</summary>
+            <p class="se-muted">{a}</p>
+          </details>
+        ))}
       </div>
     </div>
   </section>
@@ -263,10 +235,10 @@ const features = [
   <!-- FINAL CTA -->
   <section class="se-final">
     <div class="se-wrap">
-      <h2 class="se-h1">Start recording<br><span class="se-accent">for free.</span></h2>
-      <p class="se-lead">Stop memorizing scripts. Start making eye contact.</p>
+      <h2 class="se-h1" set:html={head(t.final.h2)} />
+      <p class="se-lead">{t.final.lead}</p>
       <a href={appStore} target="_blank" rel="noopener" class="se-badge">
-        <img src="/img/steadyeye/app-store-badge.svg" alt="Download SteadyEye on the App Store" width="162" height="54">
+        <img src={t.hero.badge} alt={t.hero.badgeAlt} width="162" height="54">
       </a>
     </div>
   </section>
@@ -275,21 +247,23 @@ const features = [
   <footer class="se-footer">
     <div class="se-wrap se-footer-inner">
       <span class="se-logo"><img src="/img/steadyeye/logo.png" alt="" width="24" height="24"> SteadyEye</span>
-      <p class="se-muted">Built by <a href="https://bazilier.com" target="_blank" rel="noopener">Kirill Bazilier</a></p>
+      <p class="se-muted">{t.footer.builtBy} <a href="https://bazilier.com" target="_blank" rel="noopener">Kirill Bazilier</a></p>
       <div class="se-footer-links">
-        <a href="/privacy">Privacy</a>
-        <a href="/terms">Terms</a>
+        {LANGS.filter((l) => l.code !== lang).map((l) => <a href={l.path} hreflang={l.hreflang} lang={l.htmlLang}>{l.name}</a>)}
+        <a href="/privacy">{t.footer.privacy}</a>
+        <a href="/terms">{t.footer.terms}</a>
       </div>
     </div>
   </footer>
 </div>
 
 <script>
-  // Both prompter pills step through the same words. As in the app, each
+  // All prompter pills step through the same words. As in the app, each
   // word's focus letter (ORPAlignment.swift: orpIndex) sits in the middle
   // column, straight under the camera; in three-line mode the previous and
   // next words are dimmed, their focus letters in the same column.
-  const words = ['SteadyEye', 'keeps', 'your', 'eyes', 'right', 'under', 'the', 'lens.', 'One', 'word', 'at', 'a', 'time.', 'No', 'more', 'wandering', 'eyes.'];
+  // The words come from the page's language (data-words on .se).
+  const words: string[] = JSON.parse(document.querySelector<HTMLElement>('.se')?.dataset.words ?? '[]');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function orpIndex(word: string): number {
@@ -328,6 +302,17 @@ const features = [
   window.addEventListener('scroll', () => nav?.classList.toggle('se-nav-scrolled', window.scrollY > 24), { passive: true });
 </script>
 
-<script type="application/ld+json" set:html={JSON.stringify({"@context": "https://schema.org", "@type": "MobileApplication", "name": "SteadyEye", "alternateName": "SteadyEye Teleprompter", "url": "https://steadyeye.bazilier.com/", "operatingSystem": "iOS 17 or later", "applicationCategory": "MultimediaApplication", "downloadUrl": "https://apps.apple.com/app/steadyeye-teleprompter/id6761066976", "installUrl": "https://apps.apple.com/app/steadyeye-teleprompter/id6761066976", "image": "https://steadyeye.bazilier.com/img/steadyeye/og-image.jpg", "description": "Teleprompter app for iPhone that shows your script one word at a time right under the front camera, so you keep eye contact. AI scripts, studio sound, 4K recording.", "featureList": ["Word-by-word teleprompter under the camera lens", "Three-line mode", "Eye-contact score", "AI script writing and optimization", "Studio Sound noise and echo removal", "4K stabilized front-camera recording", "External microphones", "Any language, including RTL and CJK"], "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Person", "name": "Kirill Vasilyev"}})} />
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org', '@type': 'MobileApplication', name: 'SteadyEye', alternateName: 'SteadyEye Teleprompter',
+  url: site + home, inLanguage: LANGS.find((l) => l.code === lang)!.htmlLang,
+  operatingSystem: 'iOS 17+', applicationCategory: 'MultimediaApplication',
+  downloadUrl: appStore, installUrl: appStore, image: site + t.meta.ogImage,
+  description: t.ld.description, featureList: t.ld.featureList,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  author: { '@type': 'Person', name: 'Kirill Vasilyev' },
+})} />
 
-<script type="application/ld+json" set:html={JSON.stringify({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is SteadyEye?", "acceptedAnswer": {"@type": "Answer", "text": "SteadyEye is a teleprompter app for iPhone. It shows your script one word at a time (or three lines, if you prefer) right under the front camera, so you keep eye contact with your audience while you read."}}, {"@type": "Question", "name": "How is it different from a scrolling teleprompter?", "acceptedAnswer": {"@type": "Answer", "text": "A scrolling teleprompter makes your eyes scan across lines, and viewers notice. SteadyEye keeps every word in the same spot under the lens, so your gaze stays on the camera for the whole take."}}, {"@type": "Question", "name": "Is SteadyEye free?", "acceptedAnswer": {"@type": "Answer", "text": "You can download SteadyEye and start recording for free. A subscription removes the watermark and adds more AI scripts and Studio Sound enhancements."}}, {"@type": "Question", "name": "Can I use it for TikTok, Reels, Shorts and YouTube?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Record with the front camera in up to 4K, then save the take to your Camera Roll and post it wherever your audience is."}}, {"@type": "Question", "name": "Can AI write my script?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Paste messy notes and AI turns them into a script that’s easy to read aloud, or give it a topic and it drafts one for you."}}, {"@type": "Question", "name": "What is Studio Sound?", "acceptedAnswer": {"@type": "Answer", "text": "One tap after recording removes background noise and echo and evens out your voice. Only the audio is processed; the video stays on your phone."}}, {"@type": "Question", "name": "Which languages and microphones does it support?", "acceptedAnswer": {"@type": "Answer", "text": "Scripts can be in any language, including right-to-left Arabic and Chinese, Japanese and Korean. Use the iPhone microphone, AirPods, Bluetooth, wired or DJI mics."}}, {"@type": "Question", "name": "Which iPhones does SteadyEye run on?", "acceptedAnswer": {"@type": "Answer", "text": "Any iPhone with iOS 17 or later."}}]})} />
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org', '@type': 'FAQPage', inLanguage: LANGS.find((l) => l.code === lang)!.htmlLang,
+  mainEntity: t.faq.items.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+})} />

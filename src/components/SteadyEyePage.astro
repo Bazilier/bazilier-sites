@@ -1,0 +1,29 @@
+---
+// One SteadyEye landing page in a given language, with its meta and the
+// hreflang links to the other languages. Used by /, /pt-br/ and /es/.
+import Base from '../layouts/Base.astro';
+import SteadyEyeLanding from './SteadyEyeLanding.astro';
+import { copy, LANGS, type Lang } from '../i18n/steadyeye';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const site = 'https://steadyeye.bazilier.com';
+const t = copy[lang];
+const me = LANGS.find((l) => l.code === lang)!;
+---
+
+<Base
+  title={t.meta.title}
+  description={t.meta.description}
+  canonical={site + me.path}
+  ogImage={site + t.meta.ogImage}
+  ogImageAlt={t.meta.ogImageAlt}
+  lang={me.htmlLang}
+  ogLocale={me.ogLocale}
+  ogLocaleAlternates={LANGS.filter((l) => l.code !== lang).map((l) => l.ogLocale)}
+  alternates={LANGS.map((l) => ({ hreflang: l.hreflang, href: site + l.path }))}
+  appId="6761066976"
+  gaId="G-XXXXXXXXXX"
+>
+  <SteadyEyeLanding lang={lang} />
+</Base>

@@ -30,6 +30,8 @@ a { color: inherit; }
 /* Headlines: heavy, tight, last line in the accent — as in the screenshots. */
 .se-h1, .se-h2 { font-weight: 800; letter-spacing: -0.045em; line-height: 0.98; }
 .se-h1 { font-size: clamp(3rem, 8.4vw, 6rem); }
+/* Portuguese and Spanish heroes run longer lines than "Teleprompter". */
+.se-h1-long { font-size: clamp(2.5rem, 6.2vw, 4.5rem); }
 .se-h2 { font-size: clamp(2.4rem, 6vw, 4.2rem); margin-bottom: 40px; }
 .se-lead { font-size: clamp(1.1rem, 1.6vw, 1.3rem); color: #c7c7cc; max-width: 38ch; margin-top: 24px; }
 .se-body { font-size: 1.15rem; color: #c7c7cc; max-width: 40ch; margin-top: -12px; }
@@ -43,6 +45,10 @@ a { color: inherit; }
 .se-nav-links { display: flex; align-items: center; gap: 28px; }
 .se-nav-links a { text-decoration: none; color: var(--se-muted); font-weight: 500; font-size: 0.95rem; transition: color .2s; }
 .se-nav-links a:hover { color: var(--se-text); }
+/* Language switcher: EN · PT · ES */
+.se-lang { display: inline-flex; gap: 2px; padding: 3px; border-radius: 999px; background: rgba(255, 255, 255, 0.07); }
+.se-nav-links .se-lang a { padding: 5px 9px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; color: var(--se-muted); }
+.se-nav-links .se-lang a[aria-current="page"] { background: rgba(255, 255, 255, 0.14); color: #fff; }
 .se-nav-links .se-nav-cta { color: #fff; background: var(--se-accent); padding: 9px 18px; border-radius: 999px; font-weight: 600; }
 .se-nav-links .se-nav-cta:hover { color: #fff; filter: brightness(1.08); }
 
@@ -222,7 +228,9 @@ a { color: inherit; }
   .se-stage { min-height: 0; padding: 22px 16px; }
   .se-pill { padding: 12px 16px 16px; }
   .se-section { padding: 72px 0; }
-  .se-nav-links a:not(.se-nav-cta) { display: none; }
+  .se-nav-links > a:not(.se-nav-cta) { display: none; }
+  .se-nav-links { gap: 10px; }
+  .se-nav-links .se-nav-cta { padding: 8px 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
