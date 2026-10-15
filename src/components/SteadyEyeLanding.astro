@@ -18,16 +18,6 @@ const features = [
   { icon: 'globe', title: 'Any language.', body: 'Spanish to Russian, Arabic to Japanese — with proper right-to-left and CJK support.' },
   { icon: 'drop', title: 'No watermark.', body: 'With a subscription, post your takes exactly as they are.' },
 ];
-
-const gallery = [
-  { src: '01_promise', alt: 'Teleprompter for real eye contact' },
-  { src: '02_eye-contact', alt: 'No more wandering eyes: one line or three lines' },
-  { src: '04_paste-notes', alt: 'Paste your messy notes' },
-  { src: '05_ai-optimize', alt: 'AI makes it ready to read aloud' },
-  { src: '06_scripts', alt: 'Get clean scripts, tap to record' },
-  { src: '03_social-proof', alt: 'Loved by creators' },
-  { src: '07_start-free', alt: 'Start recording for free' },
-];
 ---
 
 <div class="se">
@@ -42,7 +32,6 @@ const gallery = [
       <div class="se-nav-links">
         <a href="#how">How it works</a>
         <a href="#features">Features</a>
-        <a href="#screens">Screens</a>
         <a href={appStore} target="_blank" rel="noopener" class="se-nav-cta">Download</a>
       </div>
     </div>
@@ -209,18 +198,6 @@ const gallery = [
           </div>
         ))}
       </div>
-    </div>
-  </section>
-
-  <!-- SCREENS -->
-  <section class="se-section se-screens" id="screens">
-    <div class="se-wrap">
-      <h2 class="se-h2">See it<br><span class="se-accent">in action.</span></h2>
-    </div>
-    <div class="se-gallery" tabindex="0" aria-label="App screenshots">
-      {gallery.map((g) => (
-        <img src={`/img/steadyeye/store/${g.src}.jpg`} alt={g.alt} width="552" height="1200" loading="lazy">
-      ))}
     </div>
   </section>
 

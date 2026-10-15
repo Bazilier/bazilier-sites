@@ -176,16 +176,6 @@ a { color: inherit; }
 .se-platforms { position: absolute; left: 18px; right: 18px; bottom: 18px; z-index: 1; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
 .se-platforms span { background: rgba(0, 0, 0, 0.55); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 999px; padding: 8px 16px; font-weight: 600; font-size: 0.95rem; }
 
-/* Screenshot gallery, App Store style */
-.se-screens { padding-bottom: 80px; }
-.se-gallery {
-  display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory;
-  padding: 0 max(24px, calc((100vw - 1120px) / 2 + 24px)) 12px; scrollbar-width: none;
-}
-.se-gallery::-webkit-scrollbar { display: none; }
-.se-gallery img { width: clamp(220px, 24vw, 300px); flex: none; border-radius: 26px; scroll-snap-align: center; box-shadow: 0 0 0 1px var(--se-line); }
-.se-gallery:focus-visible { outline: 2px solid var(--se-accent); outline-offset: 4px; }
-
 /* Final CTA */
 .se-final { padding: 120px 0 110px; text-align: center; border-top: 1px solid var(--se-line); background: radial-gradient(60% 50% at 50% 100%, rgba(253, 87, 45, 0.16), transparent); }
 .se-final .se-lead { margin: 22px auto 36px; }
