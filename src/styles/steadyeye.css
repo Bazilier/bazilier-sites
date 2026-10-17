@@ -73,8 +73,6 @@ a { color: inherit; }
 .se-hero-shot { position: relative; }
 .se-hero-pill {
   position: absolute; left: 27.05%; width: 65.19%; top: 9.82%; height: 20.18%;
-  /* 30 px bottom corners keep the box inside the photo pill's rounded bottom */
-  border-radius: 0 0 6.4% 6.4% / 0 0 13.5% 13.5%;
   background: #000; container-type: inline-size; display: flex; align-items: center;
 }
 .se-hero-pill .se-lines { width: 100%; }
@@ -102,8 +100,7 @@ a { color: inherit; }
 .se-chip .se-eye { width: 20px; height: 20px; }
 .se-rec { width: 18px; height: 18px; border-radius: 50%; background: #2c2c2e; position: relative; }
 .se-rec::after { content: ''; position: absolute; inset: 6px; border-radius: 50%; background: #ff3b30; }
-.se-lc { height: 20px; width: auto; flex: none; color: #636366; margin-right: 2px; }
-.se-lc text { font: 700 200px/1 -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; fill: currentColor; text-anchor: middle; dominant-baseline: central; }
+.se-chev { width: 10px; height: 10px; border-right: 2px solid #636366; border-bottom: 2px solid #636366; transform: rotate(45deg) translate(-2px, -2px); margin-right: 4px; }
 /* The focus letter takes the middle column, centred under the camera dot. */
 .se-line {
   display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
@@ -153,14 +150,9 @@ a { color: inherit; }
   .se-how-visual { zoom: 0.7; justify-self: center; width: 70%; }
 }
 
-/* 03: 1 and 2 lines stacked on the left, 3 lines full height on the right */
-.se-how .se-modes { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 14px; }
-.se-how .se-mode-3 { grid-column: 2; grid-row: 1 / span 2; }
-/* No grey backdrop here: each pill is the card, the words centred below the top row. */
-.se-how .se-stage { min-height: 0; padding: 0; background: none; }
-.se-how .se-pill { height: 100%; display: flex; flex-direction: column; padding: 12px 14px 16px; border-radius: 22px; box-shadow: 0 0 0 1px var(--se-line); }
-.se-how .se-lines { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-.se-how .se-line { font-size: min(10cqi, 2.5rem); }
+/* 03: the two prompter cards, stacked */
+.se-how .se-modes { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; gap: 14px; }
+.se-how .se-stage { min-height: 0; }
 
 /* 01: before / after — raw notes above, the AI's read-aloud version below */
 .se-editor { background: #111; border-radius: 22px; box-shadow: 0 0 0 1px var(--se-line); }

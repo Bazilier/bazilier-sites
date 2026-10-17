@@ -21,8 +21,6 @@ const appStore = 'https://apps.apple.com/app/steadyeye-teleprompter/id6761066976
 const site = 'https://steadyeye.bazilier.com';
 const head = (h: [string, string]) => `${h[0]}<br><span class="se-accent">${h[1]}</span>`;
 const eyeSvg = `<svg class="se-eye" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.4"/></svg>`;
-// The app's line-count toggle: arrow.trianglehead.clockwise around the count.
-const linesSvg = (n: number) => `<svg class="se-lc" viewBox="35 40 406 442" aria-hidden="true"><path d="M222 99.2A180.5 180.5 0 1 0 345.6 134.1" fill="none" stroke="currentColor" stroke-width="45" stroke-linecap="round"/><path d="M210 52 282 101 210 150z" fill="currentColor" stroke="currentColor" stroke-width="24" stroke-linejoin="round"/><text x="238" y="284">${n}</text></svg>`;
 ---
 
 <div class="se" data-words={JSON.stringify(t.words)}>
@@ -136,29 +134,20 @@ const linesSvg = (n: number) => `<svg class="se-lc" viewBox="35 40 406 442" aria
           </div>
           <div class="se-how-visual">
           <div class="se-modes" aria-hidden="true">
-            <figure class="se-mode se-mode-1">
+            <figure class="se-mode">
               <figcaption>{t.how.s3.one}</figcaption>
               <div class="se-stage">
                 <div class="se-pill">
-                  <div class="se-pill-top"><Fragment set:html={eyeSvg} /><span class="se-rec"></span><Fragment set:html={linesSvg(1)} /></div>
+                  <div class="se-pill-top"><Fragment set:html={eyeSvg} /><span class="se-rec"></span><span class="se-chev"></span></div>
                   <div class="se-lines" data-lines="1"></div>
                 </div>
               </div>
             </figure>
-            <figure class="se-mode se-mode-2">
-              <figcaption>{t.how.s3.two}</figcaption>
-              <div class="se-stage">
-                <div class="se-pill">
-                  <div class="se-pill-top"><Fragment set:html={eyeSvg} /><span class="se-rec"></span><Fragment set:html={linesSvg(2)} /></div>
-                  <div class="se-lines" data-lines="2"></div>
-                </div>
-              </div>
-            </figure>
-            <figure class="se-mode se-mode-3">
+            <figure class="se-mode">
               <figcaption>{t.how.s3.three}</figcaption>
               <div class="se-stage">
                 <div class="se-pill">
-                  <div class="se-pill-top"><Fragment set:html={eyeSvg} /><span class="se-rec"></span><Fragment set:html={linesSvg(3)} /></div>
+                  <div class="se-pill-top"><Fragment set:html={eyeSvg} /><span class="se-rec"></span><span class="se-chev"></span></div>
                   <div class="se-lines" data-lines="3"></div>
                 </div>
               </div>
@@ -271,8 +260,8 @@ const linesSvg = (n: number) => `<svg class="se-lc" viewBox="35 40 406 442" aria
 <script>
   // All prompter pills step through the same words. As in the app, each
   // word's focus letter (ORPAlignment.swift: orpIndex) sits in the middle
-  // column, straight under the camera; in two- and three-line modes the previous
-  // (and next) words are dimmed, their focus letters in the same column.
+  // column, straight under the camera; in three-line mode the previous and
+  // next words are dimmed, their focus letters in the same column.
   // The words come from the page's language (data-words on .se).
   const words: string[] = JSON.parse(document.querySelector<HTMLElement>('.se')?.dataset.words ?? '[]');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -297,15 +286,13 @@ const linesSvg = (n: number) => `<svg class="se-lc" viewBox="35 40 406 442" aria
     return row;
   }
 
-  // Every pill on the page — the hero phone and step 3's three — in step.
+  // Every pill on the page — the hero phone and step 3's two — in step.
   const ones = document.querySelectorAll<HTMLElement>('.se-lines[data-lines="1"]');
-  const twos = document.querySelectorAll<HTMLElement>('.se-lines[data-lines="2"]');
   const threes = document.querySelectorAll<HTMLElement>('.se-lines[data-lines="3"]');
   let n = 0;
   function show() {
     const at = (k: number) => words[(k + words.length) % words.length];
     ones.forEach((el) => el.replaceChildren(line(at(n), false)));
-    twos.forEach((el) => el.replaceChildren(line(at(n - 1), true), line(at(n), false)));
     threes.forEach((el) => el.replaceChildren(line(at(n - 1), true), line(at(n), false), line(at(n + 1), true)));
   }
   show();
