@@ -153,9 +153,14 @@ a { color: inherit; }
   .se-how-visual { zoom: 0.7; justify-self: center; width: 70%; }
 }
 
-/* 03: the two prompter cards, stacked */
-.se-how .se-modes { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; gap: 14px; }
-.se-how .se-stage { min-height: 0; }
+/* 03: 1 and 2 lines stacked on the left, 3 lines full height on the right */
+.se-how .se-modes { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 14px; }
+.se-how .se-mode-3 { grid-column: 2; grid-row: 1 / span 2; }
+/* No grey backdrop here: each pill is the card, the words centred below the top row. */
+.se-how .se-stage { min-height: 0; padding: 0; background: none; }
+.se-how .se-pill { height: 100%; display: flex; flex-direction: column; padding: 12px 14px 16px; border-radius: 22px; box-shadow: 0 0 0 1px var(--se-line); }
+.se-how .se-lines { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.se-how .se-line { font-size: min(10cqi, 2.5rem); }
 
 /* 01: before / after — raw notes above, the AI's read-aloud version below */
 .se-editor { background: #111; border-radius: 22px; box-shadow: 0 0 0 1px var(--se-line); }
